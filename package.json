@@ -1,0 +1,38 @@
+{
+  "name": "maicjs",
+  "version": "0.1.0",
+  "description": "Modern, Agile, Intuitive, Catchy web service framework for Node.js with TypeScript",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maic333/maicjs-framework.git"
+  },
+  "keywords": [
+    "express",
+    "ts",
+    "typescript",
+    "framework",
+    "api",
+    "service",
+    "rest"
+  ],
+  "author": "Maic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maic333/maicjs-framework/issues"
+  },
+  "homepage": "https://github.com/maic333/maicjs-framework#readme",
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "tslint": "^5.16.0",
+    "tslint-mi-config": "git+https://github.com/maic333/tslint-mi-config.git",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "express": "^4.17.0",
+    "jsonschema": "^1.2.4"
+  }
+}
