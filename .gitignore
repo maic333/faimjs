@@ -2,7 +2,8 @@
 /node_modules
 
 # IDEs and editors
-/.idea
+.idea
 
 # misc
 npm-debug.log
+test
