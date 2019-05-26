@@ -1,7 +1,7 @@
 {
   "name": "maicjs",
   "version": "0.1.0",
-  "description": "Modern, Agile, Intuitive, Catchy web service framework for Node.js with TypeScript",
+  "description": "FAIM (Flexible, Agile, Intuitive, Modern) Modern, Agile, Intuitive, Catchy web service framework for Node.js with TypeScript",
   "scripts": {
     "build": "tsc",
     "lint": "tslint -p tsconfig.json"
@@ -35,6 +35,7 @@
   "dependencies": {
     "express": "^4.17.0",
     "jsonschema": "^1.2.4",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "reflect-metadata": "^0.1.13"
   }
 }

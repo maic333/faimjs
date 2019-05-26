@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
+
     "target": "es5",
     "module": "commonjs",
     "declaration": true,
     "outDir": "dist",
     "experimentalDecorators": true,
     "strict": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*"
   ],
   "exclude": [
     "node_modules",
