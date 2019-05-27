@@ -10,7 +10,9 @@ import FaimAppConfig from './http/types/faim-app-config';
 export default class FaimApp {
   // configuration defaults
   public config: FaimAppConfig = {
-    apiPrefix: 'api'
+    apiPrefix: 'api',
+    validation: false,
+    authentication: false
   };
 
   // express app
@@ -38,11 +40,11 @@ export default class FaimApp {
 
     // load controllers from the default path ('controllers' directory)
     const controllersDefaultPath: string = path.resolve(mainDirectoryPath, 'controllers');
-    await this.loadFrameworkFiles(controllersDefaultPath);
+    this.loadFrameworkFiles(controllersDefaultPath);
 
     // load services from the default path ('services' directory)
     const servicesDefaultPath: string = path.resolve(mainDirectoryPath, 'services');
-    await this.loadFrameworkFiles(servicesDefaultPath);
+    this.loadFrameworkFiles(servicesDefaultPath);
 
     return new Promise((resolve, reject) => {
       this.app.listen(port, () => {

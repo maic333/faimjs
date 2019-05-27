@@ -6,4 +6,6 @@
 
 # misc
 npm-debug.log
+
+# exclude test files
 test

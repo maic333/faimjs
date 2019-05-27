@@ -9,12 +9,18 @@ import ApiController from './core/http/decorators/api-controller';
 export { ApiController };
 import RouteRequest from './core/http/decorators/route-request';
 export { RouteRequest };
+import RouteHeaders from './core/http/decorators/route-headers';
+export { RouteHeaders };
 import RouteResponse from './core/http/decorators/route-response';
 export { RouteResponse };
+import RouteNext from './core/http/decorators/route-next';
+export { RouteNext };
 import ApiRequest from './core/http/types/api-request';
 export { ApiRequest };
 import ApiResponse from './core/http/types/api-response';
 export { ApiResponse };
+import ApiHeaders from './core/http/types/api-headers';
+export { ApiHeaders };
 import ApiHttpMethod from './core/http/types/api-http-method';
 export { ApiHttpMethod };
 
