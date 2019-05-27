@@ -36,20 +36,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var MaicApp = /** @class */ (function () {
-    function MaicApp() {
+var path = require("path");
+var get = require("lodash/get");
+var file_helper_1 = require("../helpers/file-helper");
+var api_registry_1 = require("./http/api-registry");
+var FaimApp = /** @class */ (function () {
+    function FaimApp(config) {
+        // configuration defaults
+        this.config = {
+            apiPrefix: 'api',
+            validation: false,
+            authentication: false
+        };
+        // overwrite default configuration
+        if (config) {
+            this.config = Object.assign(this.config, config);
+        }
         // create the express app
         this.app = express();
-        // #TODO inspect all files and load: Controllers, Services (DI)
-        // #TODO inspect files from the location where this is called, and all the contained directories (recursively)
     }
     /**
      * Start the app, listening on a given port
      */
-    MaicApp.prototype.listen = function (port) {
+    FaimApp.prototype.listen = function (port) {
         return __awaiter(this, void 0, void 0, function () {
+            var mainDirectoryPath, controllersDefaultPath, servicesDefaultPath;
             var _this = this;
             return __generator(this, function (_a) {
+                // initialize the ApiRegistry service
+                api_registry_1.default.init(this);
+                mainDirectoryPath = this.getMainScriptDirectoryPath();
+                controllersDefaultPath = path.resolve(mainDirectoryPath, 'controllers');
+                this.loadFrameworkFiles(controllersDefaultPath);
+                servicesDefaultPath = path.resolve(mainDirectoryPath, 'services');
+                this.loadFrameworkFiles(servicesDefaultPath);
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.app.listen(port, function () {
                             // the app is listening on the configured port
@@ -60,15 +80,36 @@ var MaicApp = /** @class */ (function () {
         });
     };
     /**
+     * Load framework specific files (controllers, services) from a given path
+     */
+    FaimApp.prototype.loadFrameworkFiles = function (filesPath) {
+        return file_helper_1.default.loadFilesFromPath(filesPath);
+    };
+    /**
      * Register a middleware
      */
-    MaicApp.prototype.use = function () {
+    /* tslint:disable-next-line no-any */
+    FaimApp.prototype.use = function () {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
         this.app.use(args);
     };
-    return MaicApp;
+    /**
+     * Register a route on a given path
+     */
+    FaimApp.prototype.route = function (routePath) {
+        return this.app.route(routePath);
+    };
+    /**
+     * Get the directory path of the main script
+     */
+    FaimApp.prototype.getMainScriptDirectoryPath = function () {
+        var mainScriptPath = get(require, 'main.filename', '');
+        return path.dirname(mainScriptPath);
+    };
+    return FaimApp;
 }());
-exports.default = MaicApp;
+exports.default = FaimApp;
+//# sourceMappingURL=faim-app.js.map

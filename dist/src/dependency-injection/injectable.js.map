@@ -1,0 +1,1 @@
+{"version":3,"file":"injectable.js","sourceRoot":"","sources":["../../../src/dependency-injection/injectable.ts"],"names":[],"mappings":";;AACA,6DAAuD;AAEvD;;GAEG;AACH,SAAS,UAAU;IACjB,OAAO,UAAS,MAAiB;QAC/B,kCAAkC;QAClC,6BAAkB,CAAC,OAAO,CAAC,MAAM,CAAC,CAAC;IACrC,CAAC,CAAC;AACJ,CAAC;AAED,kBAAe,UAAU,CAAC"}

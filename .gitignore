@@ -2,7 +2,11 @@
 /node_modules
 
 # IDEs and editors
-/.idea
+.idea
 
 # misc
 npm-debug.log
+
+# exclude test files
+test
+dist/test
