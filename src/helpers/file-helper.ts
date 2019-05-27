@@ -1,6 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+/**
+ * Helper service used to work with the file system
+ */
 class FileHelper {
   /**
    * Load all JS files under a given path, recursively, as node modules

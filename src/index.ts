@@ -1,25 +1,21 @@
 import 'reflect-metadata';
 
 // export core modules
-import MaicApp from './core/maic-app';
-export { MaicApp };
-
-// export decorators
-import ApiRoute from './decorators/api-route';
+import FaimApp from './core/faim-app';
+export { FaimApp };
+import ApiRoute from './core/http/decorators/api-route';
 export { ApiRoute };
-import ApiController from './decorators/api-controller';
+import ApiController from './core/http/decorators/api-controller';
 export { ApiController };
-import RouteRequest from './decorators/route-request';
+import RouteRequest from './core/http/decorators/route-request';
 export { RouteRequest };
-import RouteResponse from './decorators/route-response';
+import RouteResponse from './core/http/decorators/route-response';
 export { RouteResponse };
-
-// export types
-import ApiRequest from './types/api-request';
+import ApiRequest from './core/http/types/api-request';
 export { ApiRequest };
-import ApiResponse from './types/api-response';
+import ApiResponse from './core/http/types/api-response';
 export { ApiResponse };
-import ApiHttpMethod from './types/api-http-method';
+import ApiHttpMethod from './core/http/types/api-http-method';
 export { ApiHttpMethod };
 
 // export DI modules

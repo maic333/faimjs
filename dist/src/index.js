@@ -2,18 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 // export core modules
-var maic_app_1 = require("./core/maic-app");
-exports.MaicApp = maic_app_1.default;
-// export decorators
-var api_route_1 = require("./decorators/api-route");
+var faim_app_1 = require("./core/faim-app");
+exports.FaimApp = faim_app_1.default;
+var api_route_1 = require("./core/http/decorators/api-route");
 exports.ApiRoute = api_route_1.default;
-var api_controller_1 = require("./decorators/api-controller");
+var api_controller_1 = require("./core/http/decorators/api-controller");
 exports.ApiController = api_controller_1.default;
-var route_request_1 = require("./decorators/route-request");
+var route_request_1 = require("./core/http/decorators/route-request");
 exports.RouteRequest = route_request_1.default;
-var route_response_1 = require("./decorators/route-response");
+var route_response_1 = require("./core/http/decorators/route-response");
 exports.RouteResponse = route_response_1.default;
-var api_http_method_1 = require("./types/api-http-method");
+var api_http_method_1 = require("./core/http/types/api-http-method");
 exports.ApiHttpMethod = api_http_method_1.default;
 // export DI modules
 var injectable_1 = require("./dependency-injection/injectable");

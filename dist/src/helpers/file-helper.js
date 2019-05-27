@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var path = require("path");
+/**
+ * Helper service used to work with the file system
+ */
 var FileHelper = /** @class */ (function () {
     function FileHelper() {
     }

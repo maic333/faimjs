@@ -1,3 +1,6 @@
+/**
+ * Helper service used to work with the file system
+ */
 declare class FileHelper {
     /**
      * Load all JS files under a given path, recursively, as node modules
