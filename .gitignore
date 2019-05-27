@@ -9,3 +9,4 @@ npm-debug.log
 
 # exclude test files
 test
+dist/test
