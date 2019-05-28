@@ -54,22 +54,28 @@ var FaimApp = /** @class */ (function () {
         }
         // create the express app
         this.app = express();
+        // initialize the ApiRegistry service
+        api_registry_1.default.init(this);
+        // prepare to load client modules (controllers, services)
+        var mainDirectoryPath = this.getMainScriptDirectoryPath();
+        // load controllers from the default path ('controllers' directory)
+        var controllersDefaultPath = path.resolve(mainDirectoryPath, 'controllers');
+        // or load them from a given path
+        var controllersPath = this.config.controllersPath || controllersDefaultPath;
+        this.loadFrameworkFiles(controllersPath);
+        // load services from the default path ('services' directory)
+        var servicesDefaultPath = path.resolve(mainDirectoryPath, 'services');
+        // or load them from a given path
+        var servicesPath = this.config.servicesPath || servicesDefaultPath;
+        this.loadFrameworkFiles(servicesPath);
     }
     /**
      * Start the app, listening on a given port
      */
     FaimApp.prototype.listen = function (port) {
         return __awaiter(this, void 0, void 0, function () {
-            var mainDirectoryPath, controllersDefaultPath, servicesDefaultPath;
             var _this = this;
             return __generator(this, function (_a) {
-                // initialize the ApiRegistry service
-                api_registry_1.default.init(this);
-                mainDirectoryPath = this.getMainScriptDirectoryPath();
-                controllersDefaultPath = path.resolve(mainDirectoryPath, 'controllers');
-                this.loadFrameworkFiles(controllersDefaultPath);
-                servicesDefaultPath = path.resolve(mainDirectoryPath, 'services');
-                this.loadFrameworkFiles(servicesDefaultPath);
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.app.listen(port, function () {
                             // the app is listening on the configured port
