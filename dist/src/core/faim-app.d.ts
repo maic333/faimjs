@@ -1,5 +1,5 @@
 import { IRoute } from 'express';
-import FaimAppConfig from './http/types/faim-app-config';
+import FaimAppConfig from './faim-app-config';
 export default class FaimApp {
     config: FaimAppConfig;
     private app;

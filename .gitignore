@@ -7,6 +7,9 @@
 # misc
 npm-debug.log
 
+# exclude dist temporarily
+dist
+
 # exclude test files
 test
 dist/test
