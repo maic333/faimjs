@@ -8,7 +8,7 @@
 npm-debug.log
 
 # exclude dist temporarily
-/dist/*
+# /dist/*
 
 # exclude test files
 test
