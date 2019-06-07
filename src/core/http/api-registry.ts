@@ -7,6 +7,7 @@ import ApiResponse from './types/api-response';
 import { NextFunction } from 'express';
 import RoutePropertyName from './types/route-property-name';
 import ControllerMetadata from './types/controller-metadata';
+import enhanceResponse from './middleware/enhance-response';
 
 /**
  * Service used to register API requests
@@ -38,7 +39,10 @@ class ApiRegistry {
     // prepare handlers
     const handlers: ApiRequestHandler[] = [];
 
-    // #TODO add other core handlers (request validation, authentication)
+    // register middleware
+    handlers.push(enhanceResponse);
+
+    // #TODO add other core middleware (request validation, authentication)
 
     // call the request handler from controller
     handlers.push(this.getRouteHandler(handler));
@@ -50,8 +54,7 @@ class ApiRegistry {
   /**
    * Create the API request handler, injecting the necessary properties
    */
-  // #TODO fix any
-  // @ts-ignore
+  /* tslint:disable-next-line no-any */
   private getRouteHandler(func: any): ApiRequestHandler {
     return function (req: ApiRequest, res: ApiResponse, next: NextFunction) {
       // get the route data that need to be injected
