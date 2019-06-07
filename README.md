@@ -10,7 +10,18 @@ npm install git+https://github.com/maic333/faimjs-framework.git --save
 
 ## Usage
 
-### Create the FaimJS app
+- [Creating the FaimJS app](#creating-the-faimjs-app)
+- [Creating a controller](#creating-a-controller)
+- [Dependency injection](#dependency-injection)
+  * [Creating a service](#creating-a-service)
+  * [Injecting a service into a controller](#injecting-a-service-into-a-controller)
+  * [Injecting a service into another service](#injecting-a-service-into-another-service)
+  * [Injecting a service into a custom file](#injecting-a-service-into-a-custom-file)
+- [Loading controllers and services](#loading-controllers-and-services)
+  * [Loading controllers and services from custom paths](#loading-controllers-and-services-from-custom-paths)
+  * [Loading controllers and services from multiple paths](#loading-controllers-and-services-from-multiple-paths)
+
+### Creating the FaimJS app
 
 ```typescript
 /**
@@ -175,7 +186,7 @@ app.listen(port)
   });
 ```
 
-#### Loading controllers or services from multiple paths
+#### Loading controllers and services from multiple paths
 
 ```typescript
 /**
