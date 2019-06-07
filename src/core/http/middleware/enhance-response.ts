@@ -88,12 +88,13 @@ export default function enhanceResponse(req: ApiRequest, res: ApiResponse, next:
       res.setHeader('Content-Length', file.size);
     }
 
-    // cache readable stream for easy reference
+    // get the file stream
     const readableStream = file.stream;
 
     // if file stream is not available, close the response immediately
-    if (!readableStream) {
-      return res.end();
+    if (!readableStream || !readableStream.on || !readableStream.pipe) {
+      res.end();
+      throw new Error('No ReadStream provided in response');
     }
 
     // make sure stream is ready to read data before trying to pipe into the response
