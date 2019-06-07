@@ -3,12 +3,10 @@
 
 # IDEs and editors
 .idea
+/.idea
 
 # misc
 npm-debug.log
-
-# exclude dist temporarily
-dist
 
 # exclude test files
 test

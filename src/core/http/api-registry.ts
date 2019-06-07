@@ -7,6 +7,7 @@ import ApiResponse from './types/api-response';
 import { NextFunction } from 'express';
 import RoutePropertyName from './types/route-property-name';
 import ControllerMetadata from './types/controller-metadata';
+import enhanceResponse from './middleware/enhance-response';
 
 /**
  * Service used to register API requests
@@ -37,6 +38,9 @@ class ApiRegistry {
 
     // prepare handlers
     const handlers: ApiRequestHandler[] = [];
+
+    // register middleware
+    handlers.push(enhanceResponse);
 
     // #TODO add other core middleware (request validation, authentication)
 
