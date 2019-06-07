@@ -20,6 +20,7 @@ npm install git+https://github.com/maic333/faimjs-framework.git --save
 - [Loading controllers and services](#loading-controllers-and-services)
   * [Loading controllers and services from custom paths](#loading-controllers-and-services-from-custom-paths)
   * [Loading controllers and services from multiple paths](#loading-controllers-and-services-from-multiple-paths)
+- [Injecting the Request, Response, Headers or Next function](#injecting-the-request-response-headers-or-next-function)
 
 ### Creating the FaimJS app
 
@@ -204,6 +205,30 @@ const app = new FaimApp({
 app.loadFrameworkFiles(path.resolve(__dirname, 'other/controllers/path'))
 app.loadFrameworkFiles(path.resolve(__dirname, 'other/services/path'))
 app.loadFrameworkFiles(path.resolve(__dirname, 'some-module/other-services-and-controllers'))
+```
+
+### Injecting the Request, Response, Headers or Next function
+
+```typescript
+/**
+* controllers/hello-world.controller.ts
+*/
+import { ApiController, RouteResponse, ApiHttpMethod, ApiResponse, ApiRoute, RouteRequest, ApiRequest, RouteHeaders, ApiHeaders, RouteNext } from 'faimjs';
+import { NextFunction } from 'express';
+import { BikeService } from '../services/bike.service';
+
+@ApiController()
+class HelloWorldController {
+  @ApiRoute('hello-world', ApiHttpMethod.GET)
+  myMethod(
+    @RouteResponse() res: ApiResponse,
+    @RouteRequest() req: ApiRequest,
+    @RouteHeaders() headers: ApiHeaders,
+    @RouteNext() next: NextFunction
+  ) {
+    // ...
+  }
+}
 ```
 
 ## License
