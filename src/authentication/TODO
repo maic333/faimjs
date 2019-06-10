@@ -1,0 +1,18 @@
+Built-in requests:
+  1. POST /api/auth/login
+    => call config.authentication.onAuth(payload) => userData
+    => create JWT
+    => send 403 or 200 OK with JWT
+
+  2. POST /api/auth/introspect
+    => GET user data from JWT
+    => call config.authentication.checkAuth(userData) => boolean
+    => send 401 OR 200 with:
+      - active: boolean
+      - exp: timestamp
+      - userData: any
+
+Built-in decorators:
+  1. @AuthenticatedRequest()
+  2. @UseMiddleware(middleware: (req, res, next) => any!?)
+    e.g. @UseMiddleware(checkRole('ADMIN'))
