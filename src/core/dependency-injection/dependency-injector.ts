@@ -26,9 +26,9 @@ class DependencyInjector {
   /**
    * Get the instance of an injectable class
    */
-  get(token: TypeClass): object {
+  get<T extends object = object>(token: TypeClass<T>): T {
     // get instance from cache
-    const cachedInstance: object | undefined = this.instancesMap.get(token);
+    const cachedInstance: T | undefined = this.instancesMap.get(token) as T;
     if (cachedInstance) {
       // return cached instance
       return cachedInstance;

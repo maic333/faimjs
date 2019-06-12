@@ -38,6 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var route_property_name_1 = require("./types/route-property-name");
 var route_handler_metadata_1 = require("./types/route-handler-metadata");
 var enhance_response_1 = require("./middleware/enhance-response");
+var dependency_injector_1 = require("../dependency-injection/dependency-injector");
 /**
  * Service used to register API requests
  */
@@ -104,7 +105,12 @@ var ApiRegistry = /** @class */ (function () {
     ApiRegistry.prototype.getRouteGuards = function (func) {
         // get the route guards that need to be loaded
         var guards = func[route_handler_metadata_1.default.GUARDS] || [];
-        return guards.map(function (guard) {
+        return guards
+            .map(function (guardClass) {
+            // convert guard class to instance
+            return dependency_injector_1.default.get(guardClass);
+        })
+            .map(function (guard) {
             return function (req, res, next) {
                 return __awaiter(this, void 0, void 0, function () {
                     var user, e_1;

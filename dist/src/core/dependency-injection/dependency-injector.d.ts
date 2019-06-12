@@ -12,7 +12,7 @@ declare class DependencyInjector {
     /**
      * Get the instance of an injectable class
      */
-    get(token: TypeClass): object;
+    get<T extends object = object>(token: TypeClass<T>): T;
 }
 declare const injector: DependencyInjector;
 export default injector;
