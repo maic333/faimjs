@@ -1,4 +1,4 @@
-import TypeClass from '../types/type-class';
+import TypeClass from '../../types/type-class';
 
 /**
  * Create and store instances of classes and also retrieve an instance of an Injectable class

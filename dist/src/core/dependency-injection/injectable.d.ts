@@ -1,4 +1,4 @@
-import TypeClass from '../types/type-class';
+import TypeClass from '../../types/type-class';
 /**
  * Decorator used to register services to the Dependency Injection system
  */

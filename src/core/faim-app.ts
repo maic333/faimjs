@@ -11,8 +11,7 @@ export default class FaimApp {
   // configuration defaults
   public config: FaimAppConfig = {
     apiPrefix: 'api',
-    validation: false,
-    authentication: false
+    validation: false
   };
 
   // express app
@@ -44,6 +43,10 @@ export default class FaimApp {
     // or load them from a given path
     const servicesPath = this.config.servicesPath || servicesDefaultPath;
     this.loadFrameworkFiles(servicesPath);
+
+    if (get(config, 'authentication.enable', false)) {
+      // #TODO register authentication routes
+    }
   }
 
   /**

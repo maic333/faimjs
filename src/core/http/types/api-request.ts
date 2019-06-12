@@ -1,9 +1,10 @@
 import { Request } from 'express';
 
 interface ApiRequest extends Request {
-  // #TODO revisit when adding authentication support
-  /* tslint:disable-next-line no-any */
-  session: any;
+  session: {
+    /* tslint:disable-next-line no-any */
+    user: any
+  };
 }
 
 export default ApiRequest;

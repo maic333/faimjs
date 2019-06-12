@@ -1,4 +1,4 @@
-import TypeClass from '../types/type-class';
+import TypeClass from '../../types/type-class';
 import DependencyInjector from './dependency-injector';
 
 /**

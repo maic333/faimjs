@@ -3,6 +3,5 @@ interface FaimAppConfig {
     controllersPath?: string | null;
     servicesPath?: string | null;
     validation?: boolean;
-    authentication?: boolean;
 }
 export default FaimAppConfig;

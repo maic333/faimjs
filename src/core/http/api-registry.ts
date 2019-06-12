@@ -6,8 +6,9 @@ import ApiRequest from './types/api-request';
 import ApiResponse from './types/api-response';
 import { NextFunction } from 'express';
 import RoutePropertyName from './types/route-property-name';
-import ControllerMetadata from './types/controller-metadata';
+import RouteHandlerMetadata from './types/route-handler-metadata';
 import enhanceResponse from './middleware/enhance-response';
+import Guard from '../../authentication/guards/guard';
 
 /**
  * Service used to register API requests
@@ -42,6 +43,9 @@ class ApiRegistry {
     // register middleware
     handlers.push(enhanceResponse);
 
+    // register guards
+    handlers.push.apply(handlers, this.getRouteGuards(handler));
+
     // #TODO add other core middleware (request validation, authentication)
 
     // call the request handler from controller
@@ -58,7 +62,7 @@ class ApiRegistry {
   private getRouteHandler(func: any): ApiRequestHandler {
     return function (req: ApiRequest, res: ApiResponse, next: NextFunction) {
       // get the route data that need to be injected
-      const injectPropsKeys: RoutePropertyName[] = func[ControllerMetadata.INJECT_ROUTE_DATA] || [];
+      const injectPropsKeys: RoutePropertyName[] = func[RouteHandlerMetadata.INJECT_ROUTE_DATA] || [];
       // get the data to be injected
       const injectedProps = injectPropsKeys.map((propKey: RoutePropertyName) => {
         switch (propKey) {
@@ -79,6 +83,30 @@ class ApiRegistry {
       // call the request handler with the injected properties
       return func(...injectedProps);
     };
+  }
+
+  /**
+   * Create the API request guards list
+   */
+  /* tslint:disable-next-line no-any */
+  private getRouteGuards(func: any): ApiRequestHandler[] {
+    // get the route guards that need to be loaded
+    const guards: Guard[] = func[RouteHandlerMetadata.GUARDS] || [];
+
+    return guards.map((guard: Guard) => {
+      return async function (req: ApiRequest, res: ApiResponse, next: NextFunction) {
+        try {
+          const user = await guard.validateRequest(req);
+
+          // keep the user object on request session
+          req.session.user = user;
+
+          return next();
+        } catch (e) {
+          return res.unauthorized();
+        }
+      };
+    });
   }
 }
 
