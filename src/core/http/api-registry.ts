@@ -78,6 +78,8 @@ class ApiRegistry {
             return next;
           case RoutePropertyName.HEADERS:
             return req.headers;
+          case RoutePropertyName.AUTH_USER:
+            return req.session.user || null;
         }
 
         // wrongly injected property

@@ -92,6 +92,8 @@ var ApiRegistry = /** @class */ (function () {
                         return next;
                     case route_property_name_1.default.HEADERS:
                         return req.headers;
+                    case route_property_name_1.default.AUTH_USER:
+                        return req.session.user || null;
                 }
                 // wrongly injected property
                 return;
