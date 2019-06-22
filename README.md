@@ -21,6 +21,11 @@ npm install git+https://github.com/maic333/faimjs-framework.git --save
   * [Loading controllers and services from custom paths](#loading-controllers-and-services-from-custom-paths)
   * [Loading controllers and services from multiple paths](#loading-controllers-and-services-from-multiple-paths)
 - [Injecting the Request, Response, Headers or Next function](#injecting-the-request-response-headers-or-next-function)
+- [Authentication](#authentication)
+  * [Creating a Guard](#creating-a-guard)
+    * [BearerGuard example](#bearerguard-example)
+    * [RequestGuard example](#requestguard-example)
+  * [Register a Guard on a specific request and inject the authenticated user object into the route handler method](#register-a-guard-on-a-specific-request-and-inject-the-authenticated-user-object-into-the-route-handler-method)
 
 ### Creating the FaimJS app
 
@@ -215,7 +220,6 @@ app.loadFrameworkFiles(path.resolve(__dirname, 'some-module/other-services-and-c
 */
 import { ApiController, RouteResponse, ApiHttpMethod, ApiResponse, ApiRoute, RouteRequest, ApiRequest, RouteHeaders, ApiHeaders, RouteNext } from 'faimjs';
 import { NextFunction } from 'express';
-import { BikeService } from '../services/bike.service';
 
 @ApiController()
 class HelloWorldController {
@@ -227,6 +231,76 @@ class HelloWorldController {
     @RouteNext() next: NextFunction
   ) {
     // ...
+  }
+}
+```
+
+### Authentication
+
+#### Creating a Guard
+
+In order to create a Guard, you have to create an injectable service that extends one of the built-in abstract guards:
+- AbstractRequestGuard
+- AbstractBearerGuard
+
+##### BearerGuard example
+
+```typescript
+import { AbstractBearerGuard } from 'faimjs/authentication';
+import { Injectable } from 'faimjs';
+
+@Injectable()
+export class AuthGuard extends AbstractBearerGuard {
+  validate(token: string) {
+    // return the user object or a promise that resolves with the user object
+    return db.findUserByToken(token);
+  }
+}
+```
+
+##### RequestGuard example
+
+```typescript
+import { AbstractRequestGuard } from 'faimjs/authentication';
+import { Injectable, ApiRequest } from 'faimjs';
+
+@Injectable()
+export class AuthGuard extends AbstractRequestGuard {
+  validate(req: ApiRequest) {
+    const authToken = req.header('Authorization');
+    
+    if (authToken) {
+      return db.findUserByToken(token);
+    }
+    
+    // throw error or simply return false
+    return false;
+  }
+}
+```
+
+#### Register a Guard on a specific request and inject the authenticated user object into the route handler method
+
+Use the `UseGuard` decorator to register a Guard on a specific request.
+
+Inject the authenticated user object into the request handler method with the `AuthenticatedUser` decorator.
+
+```typescript
+/**
+* controllers/hello-world.controller.ts
+*/
+import { ApiController, RouteResponse, ApiHttpMethod, ApiResponse, ApiRoute, UseGuard, AuthenticatedUser } from 'faimjs';
+import { AuthGuard } from '../services/auth-guard';
+
+@ApiController()
+class HelloWorldController {
+  @ApiRoute('hello-world', ApiHttpMethod.GET)
+  @UseGuard(AuthGuard)
+  myMethod(
+    @RouteResponse() res: ApiResponse,
+    @AuthenticatedUser() user: UserModel,
+  ) {
+    res.ok(user);
   }
 }
 ```
