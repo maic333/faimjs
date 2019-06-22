@@ -1,5 +1,5 @@
 import TypeClass from '../../../types/type-class';
-import DependencyInjector from '../../../dependency-injection/dependency-injector';
+import DependencyInjector from '../../dependency-injection/dependency-injector';
 
 /**
  * Decorator used to define an API Controller

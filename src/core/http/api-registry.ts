@@ -6,8 +6,12 @@ import ApiRequest from './types/api-request';
 import ApiResponse from './types/api-response';
 import { NextFunction } from 'express';
 import RoutePropertyName from './types/route-property-name';
-import ControllerMetadata from './types/controller-metadata';
+import RouteHandlerMetadata from './types/route-handler-metadata';
 import enhanceResponse from './middleware/enhance-response';
+import enhanceRequest from './middleware/enhance-request';
+import Guard from '../../authentication/guards/guard';
+import DependencyInjector from '../dependency-injection/dependency-injector';
+import TypeClass from '../../types/type-class';
 
 /**
  * Service used to register API requests
@@ -41,8 +45,10 @@ class ApiRegistry {
 
     // register middleware
     handlers.push(enhanceResponse);
+    handlers.push(enhanceRequest);
 
-    // #TODO add other core middleware (request validation, authentication)
+    // register guards
+    handlers.push.apply(handlers, this.getRouteGuards(handler));
 
     // call the request handler from controller
     handlers.push(this.getRouteHandler(handler));
@@ -58,7 +64,7 @@ class ApiRegistry {
   private getRouteHandler(func: any): ApiRequestHandler {
     return function (req: ApiRequest, res: ApiResponse, next: NextFunction) {
       // get the route data that need to be injected
-      const injectPropsKeys: RoutePropertyName[] = func[ControllerMetadata.INJECT_ROUTE_DATA] || [];
+      const injectPropsKeys: RoutePropertyName[] = func[RouteHandlerMetadata.INJECT_ROUTE_DATA] || [];
       // get the data to be injected
       const injectedProps = injectPropsKeys.map((propKey: RoutePropertyName) => {
         switch (propKey) {
@@ -70,6 +76,8 @@ class ApiRegistry {
             return next;
           case RoutePropertyName.HEADERS:
             return req.headers;
+          case RoutePropertyName.AUTH_USER:
+            return req.session.user || null;
         }
 
         // wrongly injected property
@@ -79,6 +87,39 @@ class ApiRegistry {
       // call the request handler with the injected properties
       return func(...injectedProps);
     };
+  }
+
+  /**
+   * Create the API request guards list
+   */
+  /* tslint:disable-next-line no-any */
+  private getRouteGuards(func: any): ApiRequestHandler[] {
+    // get the route guards that need to be loaded
+    const guards: (TypeClass<Guard>)[] = func[RouteHandlerMetadata.GUARDS] || [];
+
+    return guards
+      .map((guardClass) => {
+        // convert guard class to instance
+        return DependencyInjector.get<Guard>(guardClass);
+      })
+      .map((guard: Guard) => {
+        return async function (req: ApiRequest, res: ApiResponse, next: NextFunction) {
+          try {
+            const user = await guard.validateRequest(req);
+
+            if (!user) {
+              return res.unauthorized();
+            }
+
+            // keep the user object on request session
+            req.session.user = user;
+
+            return next();
+          } catch (e) {
+            return res.unauthorized();
+          }
+        };
+      });
   }
 }
 

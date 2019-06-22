@@ -5,10 +5,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var RoutePropertyName;
 (function (RoutePropertyName) {
-    RoutePropertyName["REQUEST"] = "request";
-    RoutePropertyName["RESPONSE"] = "response";
-    RoutePropertyName["NEXT"] = "next";
-    RoutePropertyName["HEADERS"] = "headers";
+    RoutePropertyName["REQUEST"] = "REQUEST";
+    RoutePropertyName["RESPONSE"] = "RESPONSE";
+    RoutePropertyName["NEXT"] = "NEXT";
+    RoutePropertyName["HEADERS"] = "HEADERS";
+    RoutePropertyName["AUTH_USER"] = "AUTH_USER";
 })(RoutePropertyName || (RoutePropertyName = {}));
 exports.default = RoutePropertyName;
 //# sourceMappingURL=route-property-name.js.map

@@ -7,8 +7,6 @@ interface FaimAppConfig {
   servicesPath?: string | null;
   // #TODO enable jsonschema validation?
   validation?: boolean;
-  // #TODO enable JWT authentication?
-  authentication?: boolean;
 }
 
 export default FaimAppConfig;

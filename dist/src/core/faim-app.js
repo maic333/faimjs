@@ -45,8 +45,7 @@ var FaimApp = /** @class */ (function () {
         // configuration defaults
         this.config = {
             apiPrefix: 'api',
-            validation: false,
-            authentication: false
+            validation: false
         };
         // overwrite default configuration
         if (config) {

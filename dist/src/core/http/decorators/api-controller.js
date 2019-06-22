@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var dependency_injector_1 = require("../../../dependency-injection/dependency-injector");
+var dependency_injector_1 = require("../../dependency-injection/dependency-injector");
 /**
  * Decorator used to define an API Controller
  */

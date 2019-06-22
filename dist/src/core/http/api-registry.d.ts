@@ -19,6 +19,10 @@ declare class ApiRegistry {
      * Create the API request handler, injecting the necessary properties
      */
     private getRouteHandler;
+    /**
+     * Create the API request guards list
+     */
+    private getRouteGuards;
 }
 declare const _default: ApiRegistry;
 export default _default;

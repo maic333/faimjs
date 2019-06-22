@@ -11,8 +11,7 @@ export default class FaimApp {
   // configuration defaults
   public config: FaimAppConfig = {
     apiPrefix: 'api',
-    validation: false,
-    authentication: false
+    validation: false
   };
 
   // express app
