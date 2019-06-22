@@ -21,6 +21,8 @@ function ApiRoute(route, method, config) {
             var routeHandler = descriptor.value.bind(ctrlInstance);
             // preserve injected properties
             routeHandler[route_handler_metadata_1.default.INJECT_ROUTE_DATA] = descriptor.value[route_handler_metadata_1.default.INJECT_ROUTE_DATA];
+            // preserve registered guards
+            routeHandler[route_handler_metadata_1.default.GUARDS] = descriptor.value[route_handler_metadata_1.default.GUARDS];
             // register API route
             api_registry_1.default.registerRoute(route, method, config, routeHandler);
         });

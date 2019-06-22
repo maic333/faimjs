@@ -37,7 +37,7 @@ class DependencyInjector {
     // get class' dependencies
     const dependencies: TypeClass[] | undefined = this.recordsMap.get(token);
     if (!dependencies) {
-      throw new Error(`Class _ is not defined with the @Injectable() decorator`);
+      throw new Error(`Class ${token.name} is not defined with the @Injectable() decorator`);
     }
 
     // resolve dependencies into instances

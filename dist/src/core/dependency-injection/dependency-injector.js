@@ -34,7 +34,7 @@ var DependencyInjector = /** @class */ (function () {
         // get class' dependencies
         var dependencies = this.recordsMap.get(token);
         if (!dependencies) {
-            throw new Error("Class _ is not defined with the @Injectable() decorator");
+            throw new Error("Class " + token.name + " is not defined with the @Injectable() decorator");
         }
         // resolve dependencies into instances
         var depsInstances = dependencies.map(function (dep) {

@@ -8,8 +8,10 @@ import { NextFunction } from 'express';
 import RoutePropertyName from './types/route-property-name';
 import RouteHandlerMetadata from './types/route-handler-metadata';
 import enhanceResponse from './middleware/enhance-response';
+import enhanceRequest from './middleware/enhance-request';
 import Guard from '../../authentication/guards/guard';
 import DependencyInjector from '../dependency-injection/dependency-injector';
+import TypeClass from '../../types/type-class';
 
 /**
  * Service used to register API requests
@@ -43,6 +45,7 @@ class ApiRegistry {
 
     // register middleware
     handlers.push(enhanceResponse);
+    handlers.push(enhanceRequest);
 
     // register guards
     handlers.push.apply(handlers, this.getRouteGuards(handler));
@@ -92,7 +95,7 @@ class ApiRegistry {
   /* tslint:disable-next-line no-any */
   private getRouteGuards(func: any): ApiRequestHandler[] {
     // get the route guards that need to be loaded
-    const guards: (new () => Guard)[] = func[RouteHandlerMetadata.GUARDS] || [];
+    const guards: (TypeClass<Guard>)[] = func[RouteHandlerMetadata.GUARDS] || [];
 
     return guards
       .map((guardClass) => {
@@ -103,6 +106,10 @@ class ApiRegistry {
         return async function (req: ApiRequest, res: ApiResponse, next: NextFunction) {
           try {
             const user = await guard.validateRequest(req);
+
+            if (!user) {
+              return res.unauthorized();
+            }
 
             // keep the user object on request session
             req.session.user = user;

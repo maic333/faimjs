@@ -25,6 +25,8 @@ export default function ApiRoute(
         const routeHandler = descriptor.value.bind(ctrlInstance);
         // preserve injected properties
         routeHandler[RouteHandlerMetadata.INJECT_ROUTE_DATA] = descriptor.value[RouteHandlerMetadata.INJECT_ROUTE_DATA];
+        // preserve registered guards
+        routeHandler[RouteHandlerMetadata.GUARDS] = descriptor.value[RouteHandlerMetadata.GUARDS];
 
         // register API route
         ApiRegistry.registerRoute(route, method, config, routeHandler);

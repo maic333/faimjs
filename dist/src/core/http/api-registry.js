@@ -38,6 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var route_property_name_1 = require("./types/route-property-name");
 var route_handler_metadata_1 = require("./types/route-handler-metadata");
 var enhance_response_1 = require("./middleware/enhance-response");
+var enhance_request_1 = require("./middleware/enhance-request");
 var dependency_injector_1 = require("../dependency-injection/dependency-injector");
 /**
  * Service used to register API requests
@@ -63,6 +64,7 @@ var ApiRegistry = /** @class */ (function () {
         var handlers = [];
         // register middleware
         handlers.push(enhance_response_1.default);
+        handlers.push(enhance_request_1.default);
         // register guards
         handlers.push.apply(handlers, this.getRouteGuards(handler));
         // #TODO add other core middleware (request validation, authentication)
@@ -121,6 +123,9 @@ var ApiRegistry = /** @class */ (function () {
                                 return [4 /*yield*/, guard.validateRequest(req)];
                             case 1:
                                 user = _a.sent();
+                                if (!user) {
+                                    return [2 /*return*/, res.unauthorized()];
+                                }
                                 // keep the user object on request session
                                 req.session.user = user;
                                 return [2 /*return*/, next()];

@@ -2,7 +2,8 @@ import GuardType from '../types/guard-type';
 import Guard from './guard';
 import { ApiRequest } from '../../core';
 
-export default abstract class AbstractBearerGuard<UserT> implements Guard<UserT> {
+// tslint:disable-next-line no-any
+export default abstract class AbstractBearerGuard<UserT = any> implements Guard<UserT> {
   public type = GuardType.BEARER;
 
   abstract validate(token: string): UserT | Promise<UserT>;
