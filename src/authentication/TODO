@@ -1,8 +1,0 @@
-Built-in decorators:
-  1. @UseGuard(GuardClass)
-    e.g. @UseGuard(BearerGuard)
-  2. @UseMiddleware(middleware: (req, res, next) => any!?)
-    e.g. @UseMiddleware(checkRole('ADMIN'))
-
-Middleware:
-  1. bearerAuthentication
