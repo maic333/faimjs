@@ -50,8 +50,6 @@ class ApiRegistry {
     // register guards
     handlers.push.apply(handlers, this.getRouteGuards(handler));
 
-    // #TODO add other core middleware (request validation, authentication)
-
     // call the request handler from controller
     handlers.push(this.getRouteHandler(handler));
 

@@ -67,9 +67,6 @@ var FaimApp = /** @class */ (function () {
         // or load them from a given path
         var servicesPath = this.config.servicesPath || servicesDefaultPath;
         this.loadFrameworkFiles(servicesPath);
-        if (get(config, 'authentication.enable', false)) {
-            // #TODO register authentication routes
-        }
     }
     /**
      * Start the app, listening on a given port
