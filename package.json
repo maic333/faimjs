@@ -39,7 +39,7 @@
     "@types/lodash": "^4.14.132",
     "express": "^4.17.0",
     "jsonschema": "^1.2.4",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "reflect-metadata": "^0.1.13"
   }
 }
