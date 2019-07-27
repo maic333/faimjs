@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-npm install git+https://github.com/maic333/faimjs-framework.git --save
+npm install git+https://github.com/maic333/faimjs.git --save
 ```
 
 ## Usage
