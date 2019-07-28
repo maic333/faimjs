@@ -1,7 +1,5 @@
 {
   "extends": "tslint-mi-config",
   "rules": {
-    "no-duplicate-imports": false,
-    "no-empty-interface": false
   }
 }

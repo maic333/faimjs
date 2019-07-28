@@ -48,9 +48,9 @@ export default class FaimApp {
   /**
    * Start the app, listening on a given port
    */
-  async listen(port: number): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.app.listen(port, () => {
+  async listen(port: number, hostname: string = '::'): Promise<void> {
+    return new Promise((resolve) => {
+      this.app.listen(port, hostname, () => {
         // the app is listening on the configured port
         resolve();
       });

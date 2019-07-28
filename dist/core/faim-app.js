@@ -71,12 +71,13 @@ var FaimApp = /** @class */ (function () {
     /**
      * Start the app, listening on a given port
      */
-    FaimApp.prototype.listen = function (port) {
+    FaimApp.prototype.listen = function (port, hostname) {
+        if (hostname === void 0) { hostname = '::'; }
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.app.listen(port, function () {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.app.listen(port, hostname, function () {
                             // the app is listening on the configured port
                             resolve();
                         });

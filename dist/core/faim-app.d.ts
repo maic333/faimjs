@@ -7,7 +7,7 @@ export default class FaimApp {
     /**
      * Start the app, listening on a given port
      */
-    listen(port: number): Promise<void>;
+    listen(port: number, hostname?: string): Promise<void>;
     /**
      * Load framework specific files (controllers, services) from a given path
      */
