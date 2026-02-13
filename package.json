@@ -37,7 +37,7 @@
   "dependencies": {
     "@types/express": "^4.16.1",
     "@types/lodash": "^4.14.132",
-    "express": "^4.17.0",
+    "express": "^4.22.1",
     "jsonschema": "^1.2.4",
     "lodash": "^4.17.15",
     "reflect-metadata": "^0.1.13"
